@@ -14,3 +14,6 @@ class Library:
     def add_book(self, title, author, isbn):
         book = Book(title, author, isbn)
         self.books.append(book)
+    def search_book(self, title):
+        found_books = [book for book in self.books if title.lower() in book.title.lower()]
+        return found_books
