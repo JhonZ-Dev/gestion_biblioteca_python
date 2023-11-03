@@ -47,3 +47,52 @@ class Library:
                 return "All copies of this book are currently unavailable."
         else:
             return "Book not found."
+if __name__ == "__main__":
+    library = Library()
+
+    while True:
+        print("Options:")
+        print("1. Add a book")
+        print("2. Search for a book")
+        print("3. Borrow a book")
+        print("4. Return a book")
+        print("5. Quit")
+
+        choice = input("Select an option: ")
+
+        if choice == "1":
+            title = input("Enter the title: ")
+            author = input("Enter the author: ")
+            isbn = input("Enter the ISBN: ")
+            library.add_book(title, author, isbn)
+            print("Book added.")
+
+        elif choice == "2":
+            title = input("Enter the title to search for: ")
+            found_books = library.search_book(title)
+
+            if found_books:
+                print("Books found:")
+                for book in found_books:
+                    print(f"{book.title} by {book.author} (ISBN: {book.isbn})")
+            else:
+                print("No books found.")
+
+        elif choice == "3":
+            title = input("Enter the title of the book to borrow: ")
+            user_name = input("Enter your name: ")
+            result = library.borrow_book(title, user_name)
+            print(result)
+
+        elif choice == "4":
+            title = input("Enter the title of the book to return: ")
+            user_name = input("Enter your name: ")
+            result = library.return_book(title, user_name)
+            print(result)
+
+        elif choice == "5":
+            print("Goodbye!")
+            break
+
+        else:
+            print("Invalid option. Please select a valid option.")
