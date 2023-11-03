@@ -8,3 +8,5 @@ class Book:
 
 class Library:
     """A class representing a library"""
+    def __init__(self):
+        self.books = []
