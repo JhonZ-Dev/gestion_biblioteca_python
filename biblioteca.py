@@ -5,3 +5,6 @@ class Book:
         self.isbn = isbn
         self.available = True
         self.borrower = None
+
+class Library:
+    """A class representing a library"""
