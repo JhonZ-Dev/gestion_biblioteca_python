@@ -32,3 +32,18 @@ class Library:
                 return "All copies of this book are currently unavailable."
         else:
             return "Book not found."
+    def borrow_book(self, title, user_name):
+        books_found = self.search_book(title)
+
+        if books_found:
+            available_books = [book for book in books_found if book.available]
+
+            if available_books:
+                book_to_borrow = available_books[0]
+                book_to_borrow.available = False
+                book_to_borrow.borrower = user_name
+                return f"{book_to_borrow.title} has been borrowed by {user_name}."
+            else:
+                return "All copies of this book are currently unavailable."
+        else:
+            return "Book not found."
