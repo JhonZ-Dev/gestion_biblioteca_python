@@ -8,15 +8,19 @@ class Book:
 
 class Library:
     """A class representing a library"""
+
     def __init__(self):
         self.books = []
-    
+
     def add_book(self, title, author, isbn):
         book = Book(title, author, isbn)
         self.books.append(book)
+        print("Book added.")
+
     def search_book(self, title):
         found_books = [book for book in self.books if title.lower() in book.title.lower()]
         return found_books
+
     def borrow_book(self, title, user_name):
         books_found = self.search_book(title)
 
@@ -32,21 +36,23 @@ class Library:
                 return "All copies of this book are currently unavailable."
         else:
             return "Book not found."
-    def borrow_book(self, title, user_name):
+
+    def return_book(self, title, user_name):
         books_found = self.search_book(title)
 
         if books_found:
-            available_books = [book for book in books_found if book.available]
+            borrowed_books = [book for book in books_found if not book.available and book.borrower == user_name]
 
-            if available_books:
-                book_to_borrow = available_books[0]
-                book_to_borrow.available = False
-                book_to_borrow.borrower = user_name
-                return f"{book_to_borrow.title} has been borrowed by {user_name}."
+            if borrowed_books:
+                book_to_return = borrowed_books[0]
+                book_to_return.available = True
+                book_to_return.borrower = None
+                return f"{book_to_return.title} has been returned by {user_name}."
             else:
-                return "All copies of this book are currently unavailable."
+                return f"You haven't borrowed '{title}' or it's currently unavailable."
         else:
             return "Book not found."
+
 if __name__ == "__main__":
     library = Library()
 
@@ -65,7 +71,6 @@ if __name__ == "__main__":
             author = input("Enter the author: ")
             isbn = input("Enter the ISBN: ")
             library.add_book(title, author, isbn)
-            print("Book added.")
 
         elif choice == "2":
             title = input("Enter the title to search for: ")
